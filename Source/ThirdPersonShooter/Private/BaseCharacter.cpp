@@ -85,7 +85,7 @@ void ABaseCharacter::Fire() {
 		MuzzleOffset.Set(100.0f, 0.0f, 0.0f);
 		FVector MuzzleLocation = CameraLocation + FTransform(CameraRotation).TransformVector(MuzzleOffset);
 		FRotator MuzzleRotation = CameraRotation;
-		MuzzleRotation.Pitch += 1.0f;
+		MuzzleRotation.Pitch += 0.1f;
 
 		UWorld* World = GetWorld();
 
