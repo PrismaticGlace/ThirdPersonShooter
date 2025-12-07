@@ -103,3 +103,17 @@ void ABaseCharacter::Fire() {
 		}
 	}
 }
+
+void ABaseCharacter::OnHurtPlayer(float DamageAmount) {
+	Health -= DamageAmount;
+	float HealthPercent = Health / MaxHealth;
+
+	AGameHUD* HUD = UGameplayStatics::GetPlayerController(this, 0)->GetHUD<AGameHUD>();
+	HUD->GameMenuContainer->UpdateHealthBar(HealthPercent);
+
+	if (Health <= 0) {
+		UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), true);
+		Health = MaxHealth;
+	}
+
+}

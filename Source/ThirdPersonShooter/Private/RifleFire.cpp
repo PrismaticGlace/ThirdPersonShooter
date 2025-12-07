@@ -54,20 +54,25 @@ ARifleFire::ARifleFire()
 }
 
 // Called when the game starts or when spawned
-void ARifleFire::BeginPlay()
-{
+void ARifleFire::BeginPlay() {
 	Super::BeginPlay();
 	
 }
 
 // Called every frame
-void ARifleFire::Tick(float DeltaTime)
-{
+void ARifleFire::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
 
 }
 
 void ARifleFire::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit) {
+	if (AEnemyAICharacter* enemy = Cast<AEnemyAICharacter>(OtherActor)) {
+		OtherActor->Destroy();
+		Destroy();
+		return;
+	}
+	
+	
 	if (OtherActor != this && OtherComponent->IsSimulatingPhysics()) {
 		OtherComponent->AddImpulseAtLocation(ProjectileMovementComponent->Velocity * 100.0f, Hit.ImpactPoint);
 	}
